@@ -30,8 +30,6 @@ class Portal extends React.Component {
 
   componentDidUpdate() {
     const { shoudDisplayChildren, delay, animateClosing } = this.props;
-    if (!this.el) return null;
-    console.log(this.el);
     if (!shoudDisplayChildren) {
       if (animateClosing) {
         this.delayAnimation(delay);
