@@ -5,6 +5,7 @@ const pages = {
       name: 'Homepage',
       location: '/',
       exact: true,
+      animate: 'fadeIn',
     },
     slug: 'home_page',
     reactComponent: {
@@ -62,6 +63,7 @@ const pages = {
     menuEntry: {
       name: 'Contact',
       location: '/contact',
+      animate: 'moveInLeft',
     },
     slug: 'contact_page',
     reactComponent: {
