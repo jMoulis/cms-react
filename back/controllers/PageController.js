@@ -6,6 +6,8 @@ module.exports = {
     const apiResponse = new ApiResponse(res);
     try {
       const pages = await PageModel.find({});
+      if (Array.isArray(pages) && pages.length === 0)
+        return apiResponse.success(204);
       return apiResponse.success(200, { data: pages });
     } catch (error) {
       return apiResponse.failure(422, error, { message: error.message });

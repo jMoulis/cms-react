@@ -6,11 +6,13 @@ class Portal extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     shoudDisplayChildren: PropTypes.bool,
+    animateClosing: PropTypes.bool,
     delay: PropTypes.number,
   };
 
   static defaultProps = {
     shoudDisplayChildren: false,
+    animateClosing: false,
     delay: 0,
   };
 
@@ -30,11 +32,12 @@ class Portal extends React.Component {
 
   componentDidUpdate() {
     const { shoudDisplayChildren, delay, animateClosing } = this.props;
+
     if (!shoudDisplayChildren) {
       if (animateClosing) {
         this.delayAnimation(delay);
       } else {
-        this.menuRoot.removeChild(this.el);
+        this._removeChild(this.el, this.menuRoot);
       }
     } else {
       this.menuRoot.appendChild(this.el);
@@ -42,14 +45,22 @@ class Portal extends React.Component {
   }
 
   componentWillUnmount() {
-    if (!this.el) return null;
-    this.menuRoot.removeChild(this.el);
+    this._removeChild(this.el, this.menuRoot);
     clearTimeout(this.timer);
   }
 
+  _removeChild = (element, parent) => {
+    if (!this._isDescendant(element, parent)) return null;
+    parent.removeChild(element);
+  };
+
+  _isDescendant = (node, parent) => {
+    return parent === node.parentNode;
+  };
+
   delayAnimation = delay => {
     this.timer = setTimeout(() => {
-      this.menuRoot.removeChild(this.el);
+      this._removeChild(this.el, this.menuRoot);
     }, delay);
   };
 

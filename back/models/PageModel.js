@@ -3,8 +3,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const PageSchema = new Schema({
-  pageName: String,
-  menuEntry: Object,
+  pageName: {
+    type: String,
+    required: true,
+  },
+  menuEntry: {
+    type: Object,
+    required: true,
+    default: {},
+  },
   reactComponent: Object,
   slug: String,
   createdAt: {
